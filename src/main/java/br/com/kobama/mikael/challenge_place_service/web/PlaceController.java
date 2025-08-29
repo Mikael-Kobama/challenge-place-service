@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kobama.mikael.challenge_place_service.api.PlaceRequest;
 import br.com.kobama.mikael.challenge_place_service.api.PlaceResponse;
-import br.com.kobama.mikael.challenge_place_service.domain.Place;
 import br.com.kobama.mikael.challenge_place_service.domain.PlaceService;
+import jakarta.validation.Valid;
 import reactor.core.publisher.Mono;
 
 
@@ -24,7 +24,7 @@ public class PlaceController {
   }
 
   @PostMapping
-  public ResponseEntity<Mono<PlaceResponse>> create(@RequestBody PlaceRequest request) {
+  public ResponseEntity<Mono<PlaceResponse>> create(@Valid @RequestBody PlaceRequest request) {
     var placeResponse = placeService.create(request).map(PlaceMapper::fromPlaceTResponse);
     return ResponseEntity.status(HttpStatus.CREATED).body(placeResponse);
   }
